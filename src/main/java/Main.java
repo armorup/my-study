@@ -16,18 +16,29 @@ public class Main extends App {
         Label question = new Label("What is 2 + 3?");
         answer = new TextField();
         Button check = new Button("Check");
+        Button reset = new Button("Reset");
         feedback = new Label("");
         attemptsLabel = new Label("Attempts: 0");
-        check.onClick(() -> {
-            attempts = attempts + 1;
-            attemptsLabel.setText("Attempts: " + attempts);
-            if (answer.getText().equals("5")) {
-                feedback.setText("Correct!");
-            } else {
-                feedback.setText("Try again.");
-            }
-        });
-        show(new Column(10, question, answer, check, feedback, attemptsLabel));
+        check.onClick(() -> checkAnswer());
+        reset.onClick(() -> resetQuiz());
+        show(new Column(10, question, answer, check, reset, feedback, attemptsLabel));
+    }
+
+    private void checkAnswer() {
+        attempts = attempts + 1;
+        attemptsLabel.setText("Attempts: " + attempts);
+        if (answer.getText().equals("5")) {
+            feedback.setText("Correct!");
+        } else {
+            feedback.setText("Try again.");
+        }
+    }
+
+    private void resetQuiz() {
+        attempts = 0;
+        attemptsLabel.setText("Attempts: 0");
+        answer.setText("");
+        feedback.setText("");
     }
 
     public static void main(String[] args) { launch(args); }
