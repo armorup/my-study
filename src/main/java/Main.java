@@ -5,14 +5,18 @@ import zero.ui.Column;
 import zero.App;
 
 public class Main extends App {
-    private int attempts = 0;
+    private final Counter attempts = new Counter();
     private TextField answer;
     private Label feedback;
     private Label attemptsLabel;
 
-    @Override public void settings() { padding(20); }
+    @Override
+    public void settings() {
+        padding(20);
+    }
 
-    @Override public void setup() {
+    @Override
+    public void setup() {
         Label question = new Label("What is 2 + 3?");
         answer = new TextField();
         Button check = new Button("Check");
@@ -25,8 +29,8 @@ public class Main extends App {
     }
 
     private void checkAnswer() {
-        attempts = attempts + 1;
-        attemptsLabel.setText("Attempts: " + attempts);
+        attempts.increment();
+        attemptsLabel.setText("Attempts: " + attempts.value());
         if (answer.getText().equals("5")) {
             feedback.setText("Correct!");
         } else {
@@ -35,11 +39,13 @@ public class Main extends App {
     }
 
     private void resetQuiz() {
-        attempts = 0;
+        attempts.reset();
         attemptsLabel.setText("Attempts: 0");
         answer.setText("");
         feedback.setText("");
     }
 
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
